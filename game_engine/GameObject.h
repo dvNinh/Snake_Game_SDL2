@@ -9,7 +9,7 @@
 
 enum TYPES {
     EMPTY,
-    SNAKE,
+    BODY,
     FOOD,
     WALL,
     HEAD,
