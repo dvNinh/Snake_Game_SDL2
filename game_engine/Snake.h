@@ -8,14 +8,14 @@
 
 #include "GameObject.h"
 
-class Snake: public GameObject {
+class Snake {
 private:
     GameObject *head;
     GameObject *tail;
     Coordinate direction;
     int length;
 public:
-    Snake(int x, int y, Coordinate _direction): GameObject(x, y, TYPES::SNAKE){
+    Snake(int x, int y, Coordinate _direction){
         this->direction = _direction;
         length = 1;
         head = new GameObject(x, y, TYPES::HEAD);
