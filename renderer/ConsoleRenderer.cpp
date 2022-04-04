@@ -13,15 +13,17 @@ void ConsoleRenderer::render(Map* map) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (map->getCell(i,j) == TYPES::EMPTY) {
-                std::cout << "# ";
+                std::cout << "  ";
             } else if (map->getCell(i,j) == TYPES::HEAD) {
                 std::cout << "H ";
             } else if (map->getCell(i,j) == TYPES::TAIL) {
                 std::cout << "T ";
+            } else if (map->getCell(i,j) == TYPES::BODY) {
+                std::cout << "B ";
             }
         }
         std::cout << std::endl;
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
     system("cls");
 }

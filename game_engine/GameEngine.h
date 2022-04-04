@@ -42,6 +42,7 @@ public:
     void step(int key);
     int getStatus();
     int getKey();
+    std::vector<GameObject> getBody();
     void render(Renderer *renderer);
 };
 
