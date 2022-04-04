@@ -30,13 +30,11 @@ void GameEngine::render(Renderer* renderer) {
             map->setCell(i, j, TYPES::EMPTY);
         }
     }
-    // fill map with snake cells
-    Coordinate headPosition = snake->getHead()->getPosition();
-    map->setCell(headPosition.x, headPosition.y, TYPES::HEAD);
 
-    // fill map with tail cells
-    Coordinate tailPosition = snake->getTail()->getPosition();
-    map->setCell(tailPosition.x, tailPosition.y, TYPES::TAIL);
+    for(auto bodyCell: snake->getNodes()){
+        Coordinate bodyPosition = bodyCell.getPosition();
+        map->setCell(bodyPosition.x, bodyPosition.y, bodyCell.getSymbol());
+    }
 
     renderer->render(map);
 }
@@ -69,6 +67,9 @@ GameEngine::GameEngine() {
     width = 20;
     height = 20;
     snake = new Snake(height / 2, width / 2, Coordinate{0, 1});
+    snake->grow();
+    snake->grow();
+    snake->grow();
     status = Status::RUNNING;
     map = new Map(height, width);
 }
