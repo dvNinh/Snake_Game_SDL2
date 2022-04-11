@@ -15,15 +15,37 @@ int SimpleAI::chooseDirection(Map *map, Coordinate snakeHead) {
             {snakeHead.x, snakeHead.y + 1},
             {snakeHead.x, snakeHead.y - 1}
     };
+    std::vector<int> plausibleDirections;
     for (int i = 0; i < 4; i++) {
         auto &coordinate = directionCoordinates[i];
         if (map->getCell(coordinate.x, coordinate.y) == TYPES::EMPTY ||
         map->getCell(coordinate.x, coordinate.y) == TYPES::FOOD) {
-            direction = i;
-            break;
+            plausibleDirections.push_back(i);
         }
     }
-    switch (direction) {
+    // choose direction that nearest food
+    // find food
+    Coordinate foodCoordinate;
+    for (int i = 0; i < map->getWidth(); i++) {
+        for (int j = 0; j < map->getHeight(); j++) {
+            if (map->getCell(i, j) == TYPES::FOOD) {
+                foodCoordinate = {i, j};
+                break;
+            }
+        }
+    }
+    // find nearest food
+    int nearestFoodDistance = INT_MAX;
+    int nearestFoodDirection = -1;
+    for (int i = 0; i < plausibleDirections.size(); i++) {
+        auto &coordinate = directionCoordinates[plausibleDirections[i]];
+        int distance = abs(coordinate.x - foodCoordinate.x) + abs(coordinate.y - foodCoordinate.y);
+        if (distance < nearestFoodDistance) {
+            nearestFoodDistance = distance;
+            nearestFoodDirection = plausibleDirections[i];
+        }
+    }
+    switch (nearestFoodDirection) {
         case 0:
             return KeyPress::RIGHT;
         case 1:
