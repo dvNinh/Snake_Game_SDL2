@@ -5,13 +5,13 @@
 #include "Snake.h"
 
 Snake::~Snake() {
-    delete[] head;
-    delete[] tail;
 }
 
 void Snake::move() {
-    tail->moveTo(head->getPosition());
-    head->move(direction);
+    for (int i = nodes.size() - 1; i > 0; i--) {
+        nodes[i].moveTo(nodes[i - 1].getPosition());
+    }
+    nodes[0].move(direction);
 }
 
 void Snake::setDirection(Coordinate direction) {
@@ -24,10 +24,24 @@ void Snake::setDirection(Coordinate direction) {
 }
 
 GameObject *Snake::getHead() {
-    return head;
+    return &nodes[0];
 }
 
 GameObject *Snake::getTail() {
-    return tail;
+    return &nodes[nodes.size() - 1];
+}
+
+void Snake::grow() {
+    // TH -> TTH -> TBH
+    auto tailPosition = nodes[nodes.size() - 1].getPosition();
+    tailPosition.y -= 1;
+    nodes[nodes.size() - 1].setSymbol(TYPES::BODY);
+    nodes.push_back(GameObject(tailPosition, TYPES::TAIL));
+
+}
+
+std::vector<GameObject> Snake::getNodes() {
+    return nodes;
+
 }
 

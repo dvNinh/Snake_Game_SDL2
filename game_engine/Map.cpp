@@ -8,30 +8,30 @@
 Map::Map(int width, int height) {
     this->width = width;
     this->height = height;
-    this->map = new int*[height];
-    for (int i = 0; i < height; i++) {
-        this->map[i] = new int[width];
+    this->map = new int*[width];
+    for (int x = 0; x < width; x++) {
+        this->map[x] = new int[height];
     }
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            this->map[i][j] = TYPES::EMPTY;
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            this->map[x][y] = TYPES::EMPTY;
         }
     }
 }
 
 Map::~Map() {
-    for (int i = 0; i < this->height; i++) {
-        delete[] this->map[i];
+    for (int x = 0; x < this->width; x++) {
+        delete[] this->map[x];
     }
     delete[] this->map;
 }
 
 void Map::setCell(int x, int y, char c) {
-    this->map[y][x] = c;
+    this->map[x][y] = c;
 }
 
 char Map::getCell(int x, int y) {
-    return this->map[y][x];
+    return this->map[x][y];
 }
 
 int Map::getWidth() {

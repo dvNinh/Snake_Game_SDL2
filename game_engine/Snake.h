@@ -7,19 +7,21 @@
 
 
 #include "GameObject.h"
+#include <vector>
 
 class Snake {
 private:
-    GameObject *head;
-    GameObject *tail;
+    std::vector<GameObject> nodes;
     Coordinate direction;
     int length;
 public:
     Snake(int x, int y, Coordinate _direction){
         this->direction = _direction;
         length = 1;
-        head = new GameObject(x, y, TYPES::HEAD);
-        tail = new GameObject(x, y-1, TYPES::TAIL);
+        auto head = new GameObject(x, y, TYPES::HEAD);
+        auto tail = new GameObject(x, y-1, TYPES::TAIL);
+        nodes.push_back(*head);
+        nodes.push_back(*tail);
     }
     ~Snake();
     void move();
@@ -29,6 +31,8 @@ public:
     int getLength();
     GameObject* getHead();
     GameObject* getTail();
+
+    std::vector<GameObject> getNodes();
 };
 
 

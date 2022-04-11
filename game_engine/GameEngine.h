@@ -9,6 +9,7 @@
 #include "Snake.h"
 #include "../renderer/Renderer.h"
 #include "Map.h"
+#include "SimpleAI.h"
 
 enum KeyPress
 {
@@ -31,8 +32,10 @@ class GameEngine {
 private:
     Map* map;
     Snake* snake;
-//    Food* foods;
-//    Wall* walls;
+    GameObject* food;
+    SimpleAI *ai;
+    std::vector<GameObject> walls;
+
     int status;
     int width;
     int height;
@@ -43,6 +46,15 @@ public:
     int getStatus();
     int getKey();
     void render(Renderer *renderer);
+
+    void generateWall();
+    void generateFood();
+
+    bool isFoodOnSnake(Coordinate coordinate);
+    bool isFoodOnWall(Coordinate coordinate);
+
+    void generateMap();
+
 };
 
 
