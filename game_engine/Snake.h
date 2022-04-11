@@ -33,6 +33,8 @@ public:
     GameObject* getTail();
 
     std::vector<GameObject> getNodes();
+
+    bool collidesWithSelf();
 };
 
 

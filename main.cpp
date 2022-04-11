@@ -14,9 +14,10 @@ int main() {
         gameEngine->step(key);
         gameEngine->render(renderer);
         status = gameEngine->getStatus();
-    }
-    if (status == Status::EXIT) {
-        std::cout << "Exiting..." << std::endl;
+        if (status == Status::EXIT) {
+            std::cout << "Exiting..." << std::endl;
+            return 1;
+        }
     }
     return 0;
 }

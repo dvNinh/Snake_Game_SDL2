@@ -40,14 +40,26 @@ void GameEngine::step(int key) {
     }
     snake->setDirection(direction);
     snake->move();
-    if(snake->getHead()->getPosition() == food->getPosition()) {
+    // check if snake collides with itself
+    if(snake->collidesWithSelf()) {
+        status = Status::EXIT;
+    }
+    // check if snake collides with wall
+    for(auto& wall : walls) {
+        if(snake->getHead()->getPosition() == wall.getPosition()) {
+            status = Status::EXIT;
+        }
+    }
+    // check if snake eats food
+    auto nextHeadPosition = snake->getHead()->getPosition() + direction;
+    if(nextHeadPosition == food->getPosition()) {
         snake->grow();
         generateFood();
     }
 }
 
 int GameEngine::getStatus() {
-    return Status::RUNNING;
+    return status;
 }
 
 GameEngine::GameEngine() {
@@ -62,6 +74,8 @@ GameEngine::GameEngine() {
     ai = new SimpleAI();
     status = Status::RUNNING;
     map = new Map(width, height);
+    // set random seed
+    srand(time(NULL));
 }
 
 void GameEngine::generateWall() {
@@ -81,7 +95,7 @@ void GameEngine::generateFood() {
     int x = rand() % width;
     int y = rand() % height;
     Coordinate foodPosition{x, y};
-    if (!isFoodOnWall(foodPosition) && !isFoodOnSnake(foodPosition)) {
+    if (!isFoodOnWall(foodPosition) && !isFoodOnSnake(foodPosition) ) {
         food = new GameObject(foodPosition, TYPES::FOOD);
     } else {
         generateFood();

@@ -44,3 +44,12 @@ std::vector<GameObject> Snake::getNodes() {
 
 }
 
+bool Snake::collidesWithSelf() {
+    for (int i = 1; i < nodes.size(); i++) {
+        if (nodes[0].getPosition() == nodes[i].getPosition()) {
+            return true;
+        }
+    }
+    return false;
+}
+
