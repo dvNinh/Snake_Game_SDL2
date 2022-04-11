@@ -33,11 +33,10 @@ GameObject *Snake::getTail() {
 
 void Snake::grow() {
     // TH -> TTH -> TBH
-    auto tailPosition = nodes[nodes.size() - 1].getPosition();
-    tailPosition.y -= 1;
-    nodes[nodes.size() - 1].setSymbol(TYPES::BODY);
-    nodes.push_back(GameObject(tailPosition, TYPES::TAIL));
-
+    auto headPosition = getHead()->getPosition();
+    headPosition = headPosition + direction;
+    nodes[0].setSymbol(TYPES::BODY);
+    nodes.insert(nodes.begin(), GameObject(headPosition, TYPES::HEAD));
 }
 
 std::vector<GameObject> Snake::getNodes() {

@@ -40,6 +40,10 @@ void GameEngine::step(int key) {
     }
     snake->setDirection(direction);
     snake->move();
+    if(snake->getHead()->getPosition() == food->getPosition()) {
+        snake->grow();
+        generateFood();
+    }
 }
 
 int GameEngine::getStatus() {
