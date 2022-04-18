@@ -40,7 +40,7 @@ private:
     int width;
     int height;
 public:
-    GameEngine();
+    GameEngine(int _width, int _height);
     ~GameEngine() = default;
     void step(int key);
     int getStatus();

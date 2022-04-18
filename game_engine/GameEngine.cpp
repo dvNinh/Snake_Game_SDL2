@@ -62,9 +62,10 @@ int GameEngine::getStatus() {
     return status;
 }
 
-GameEngine::GameEngine() {
-    width = 10;
-    height = 25;
+GameEngine::GameEngine(int _width, int _height) {
+    width = _width;
+    height = _height;
+
     snake = new Snake(width / 2, height / 2, Coordinate{0, 1});
     snake->grow();
     snake->grow();
@@ -75,7 +76,7 @@ GameEngine::GameEngine() {
     status = Status::RUNNING;
     map = new Map(width, height);
     // set random seed
-    srand(time(NULL));
+    srand(99);
 }
 
 void GameEngine::generateWall() {
