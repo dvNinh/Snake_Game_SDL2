@@ -39,7 +39,6 @@ void GameEngine::step(int key) {
             break;
     }
     snake->setDirection(direction);
-    snake->move();
     // check if snake collides with itself
     if(snake->collidesWithSelf()) {
         status = Status::EXIT;
@@ -53,8 +52,11 @@ void GameEngine::step(int key) {
     // check if snake eats food
     auto nextHeadPosition = snake->getHead()->getPosition() + direction;
     if(nextHeadPosition == food->getPosition()) {
-        snake->grow();
         generateFood();
+        snake->grow();
+    }
+    else{
+        snake->move();
     }
 }
 
@@ -76,7 +78,7 @@ GameEngine::GameEngine(int _width, int _height) {
     status = Status::RUNNING;
     map = new Map(width, height);
     // set random seed
-    srand(99);
+    srand(1);
 }
 
 void GameEngine::generateWall() {
